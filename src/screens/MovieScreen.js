@@ -5,6 +5,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Share,
+  StyleSheet,
+  Linking,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -13,9 +16,11 @@ import {
   fetchMovieDetails,
   fetchSimilarMovies,
   image500,
+  getVideo,
 } from "../../utils/moviesapi";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
+import { Ionicons } from "@expo/vector-icons";
 import Loading from "../components/Loading";
 import Cast from "../components/Cast";
 import PopularMovie from "../components/PopularMovie";
@@ -23,6 +28,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 
 var { width, height } = Dimensions.get("window");
+
+const setWidth = (w) => (width / 100) * w;
 
 export default function MovieScreen() {
   const { params: item } = useRoute();
@@ -194,6 +201,20 @@ export default function MovieScreen() {
                 height: height * 0.55,
               }}
             />
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={() => {
+                if (movie?.videos?.results?.length > 0) {
+                  Linking.openURL(getVideo(movie.videos.results[0].key));
+                } else {
+                  // Handle the case when 'videos' or 'results' is undefined or empty
+                  console.error("No video available for this movie.");
+                  // You might want to provide a fallback behavior or message here
+                }
+              }}
+            >
+              <Ionicons name="play-circle-outline" size={70} color="white" />
+            </TouchableOpacity>
           </View>
         )}
       </View>
@@ -219,10 +240,28 @@ export default function MovieScreen() {
         {/* Movie Title */}
 
         <View className="space-y-3 p-4">
-          <Text className="text-white text-left text-2xl font-bold tracking-widest">
-            {movie?.title}
-          </Text>
-
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text
+              style={{ width: 200 }}
+              className="text-white text-left text-2xl font-bold tracking-widest"
+            >
+              {movie?.title}
+            </Text>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() =>
+                Share.share({
+                  message: `${movie?.title}\n\n${movie?.homepage}`,
+                })
+              }
+            >
+              <Text className="text-white text-left text-2xl font-bold tracking-widest">
+                Share
+              </Text>
+            </TouchableOpacity>
+          </View>
           {/* Genres */}
           <Text className="flex-row space-x-2">
             {movie?.genres?.map((genre, index) => {
@@ -271,3 +310,12 @@ export default function MovieScreen() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  playButton: {
+    position: "absolute",
+    top: 110,
+    left: setWidth(50) - 70 / 2,
+    elevation: 10,
+  },
+});

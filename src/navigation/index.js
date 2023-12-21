@@ -3,13 +3,13 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import WelcomeScreen from "../screens/WelcomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import SavedScreen from "../screens/SavedScreen";
 import HomeScreen from "../screens/HomeScreen";
 import PersonScreen from "../screens/PersonScreen";
 import { Ionicons } from "@expo/vector-icons";
 import MovieScreen from "../screens/MovieScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,10 +21,10 @@ export default function AppNavigation() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Welcome"
+        initialRouteName="Login"
       >
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="HomeTab" component={HomeTabs} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Movie" component={MovieScreen} />
         <Stack.Screen name="Person" component={PersonScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />

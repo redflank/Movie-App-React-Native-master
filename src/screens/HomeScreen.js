@@ -101,7 +101,7 @@ export default function HomeScreen() {
         <View className="flex-row justify-between items-center mx-4 mg-4">
           <View className="border-2 border-white rounded-full overflow-hidden">
             <Image
-              source={require("../../assets/images/avatar.png")}
+              source={require("../../assets/images/avatar2.jpeg")}
               style={{
                 width: 45,
                 height: 45,
@@ -112,7 +112,6 @@ export default function HomeScreen() {
 
           {/* Notification and Search Icon */}
           <View className="flex-row space-x-4">
-            <BellIcon size={30} strokeWidth={2} color="white" />
             <TouchableOpacity onPress={() => navigation.navigate("Search")}>
               <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
             </TouchableOpacity>

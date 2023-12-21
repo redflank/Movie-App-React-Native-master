@@ -9,10 +9,11 @@ const upComingMoviesEndpoint = `${apiBaseUrl}/movie/upcoming?api_key=${movieapik
 const topRatedMoviesEndpoint = `${apiBaseUrl}/movie/top_rated?api_key=${movieapikey}`;
 const genresEndpoint = `${apiBaseUrl}/genre/movie/list?api_key=${movieapikey}`;
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${movieapikey}`;
+const YOUTUBE_BASE_URL = "https://www.youtube.com/watch"
 
 // Movie Details Endpoint
 const movieDetailsEndpoint = (id) =>
-  `${apiBaseUrl}/movie/${id}?api_key=${movieapikey}`;
+  `${apiBaseUrl}/movie/${id}?api_key=${movieapikey}&append_to_response=videos`;
 
 const movieCreditsEndpoint = (id) =>
   `${apiBaseUrl}/movie/${id}/credits?api_key=${movieapikey}`;
@@ -27,7 +28,8 @@ const personDetailsEndpoint = (id) =>
 const personMovieEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${movieapikey}`;
 
-// Api call to get  movies
+  const getVideo = (key) => `${YOUTUBE_BASE_URL}?v=${key}`;
+  // Api call to get  movies
 
 const movieApiCall = async (endpoints, params) => {
   const options = {
@@ -94,3 +96,5 @@ export const fetchPersonDetails = (id) => {
 export const fetchPersonMovies = (id) => {
   return movieApiCall(personMovieEndpoint(id));
 };
+
+export { getVideo };

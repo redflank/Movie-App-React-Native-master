@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.riddhi777.moviecinema"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +31,15 @@
       "eas": {
         "projectId": "24216ecd-22d7-490d-b5aa-1f0a2d6e9aa0"
       }
-    }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/24216ecd-22d7-490d-b5aa-1f0a2d6e9aa0"
+    },
+    "plugins": [
+      "@react-native-firebase/app"
+    ]
   }
 }
